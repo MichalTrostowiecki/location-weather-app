@@ -48,7 +48,8 @@ function convertCity(cityName, callback) {
 
 // Get weather based on cordinates provided
 function getWeather(city) {
-    
+
+    $(".today").addClass("hidden")
     $(".forecast-title").addClass("hidden");
 
     convertCity(city, function(cityCordinates) {
@@ -87,7 +88,9 @@ function getWeather(city) {
             $("#today").append(todayTitle, temperature, wind, humidity);
             
             display5Days(data.list);
+            $(".today").removeClass("hidden")
             $(".forecast-title").removeClass("hidden");
+
         })
         .catch(function(error) {
             console.error("Error fetching weather data:", error)

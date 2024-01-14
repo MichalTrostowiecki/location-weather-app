@@ -1,4 +1,6 @@
-
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
 /* Header section style  */
 .weather-header {
@@ -22,27 +24,49 @@
 }
 
 .search-button:hover {
-   color: white;
-   background-color: grey;
+   background-color: blanchedalmond;
+}
+
+/* Today section style */
+#today {
+    padding: 20px;
+    border: solid 1px rgba(0, 0, 0, 0.287);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.today-title {
+    display: flex;
+    align-items: center;
+}
+
+.today-title > img {
+    height: 70px;
+    padding-bottom: 10px;
+    
 }
 
 
-
 /* Forecast section style */
+
+
+#forecast {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
 
 .hidden {
     display: none;
 }
 
-#forecast {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    
+.forecast-title { 
+    font-size: 20px;
 }
 
+
 .dayCard {
-    margin-top: 40px;
     text-align: center;
     border-radius: 5px;
     background: rgba(81, 85, 105, 0.15);
@@ -63,5 +87,9 @@
     height: 40px;
     background: rgba(81, 85, 105, 0.15);
     border: none;
+}
+
+#history > button:hover {
+    background-color: blanchedalmond;
 }
 
