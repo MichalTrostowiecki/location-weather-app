@@ -1,8 +1,8 @@
 
+
 let cityHistory = [];
 
 $(function() {
-    console.log(localStorage.getItem("searchHistory"))
     // Getting data from local storage
     let searchHistory = localStorage.getItem("searchHistory");
 
@@ -49,6 +49,8 @@ function convertCity(cityName, callback) {
 // Get weather based on cordinates provided
 function getWeather(city) {
     
+    $(".forecast-title").addClass("hidden");
+
     convertCity(city, function(cityCordinates) {
         
         let APIkey = "bfad5b4e337fb545db6e1e7cf22420c3"
@@ -71,7 +73,7 @@ function getWeather(city) {
             let iconSrc = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`
 
             // Create html elements with data from API
-            let todayTitle = $("<div>");
+            let todayTitle = $("<div>").addClass("today-title");
             let icon = $("<img>").attr("src", iconSrc);
             cityName = $("<h2>").text(data.city.name + " " + date);
             let temp = data.list[0].main.temp;
@@ -85,6 +87,7 @@ function getWeather(city) {
             $("#today").append(todayTitle, temperature, wind, humidity);
             
             display5Days(data.list);
+            $(".forecast-title").removeClass("hidden");
         })
         .catch(function(error) {
             console.error("Error fetching weather data:", error)
@@ -97,15 +100,21 @@ function getWeather(city) {
 $("#search-button").on("click", function(event) {
     
     event.preventDefault();
-
-    //Clear today's weather and forecast
-    $("#today").empty();
-    $("#forecast").empty();
-
+    
 
     // Get value from user input - city name
     let searchInput = $("#search-input").val()
-    getWeather(searchInput)
+
+    // Small check to
+    if (searchInput === "" || searchInput === " ") {
+        alert("Please type in City to check the weather. Empty Space is not allowed")
+        return
+    } else {
+        //Clear today's weather and forecast
+        $("#today").empty();
+        $("#forecast").empty();
+        getWeather(searchInput)
+    }
 
     // Generate buttons with user searches
     let historyBtn = $("<button>").text(searchInput);
@@ -147,7 +156,7 @@ function display5Days(data) {
 
 
     });
-
+    // Remove from 5 days forecast today's forecast
     delete groupedData[currentDate];
 
     // Looping through dates
@@ -179,13 +188,13 @@ function display5Days(data) {
         let avgHumidity = (totalHumidity / items.length).toFixed(0);
 
         // Manipulating DOM to display weather
-        let dayDate = $("<h3>").text(date);
+        let dayDate = $("<h5>").text(date);
         let icon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`)
         let dayTemp = $("<p>").text("Temp: " + avgTemp + " °C");
         let daywind = $("<p>").text("Wind: " + avgWind + " KPH");
         let dayHumidity = $("<p>").text("Humidity: " + avgHumidity + "%");
 
-        let dayContainer = $("<div>");
+        let dayContainer = $("<div>").addClass("dayCard");
         dayContainer.append(dayDate, icon, dayTemp, daywind, dayHumidity);
 
         $("#forecast").append(dayContainer);
@@ -193,6 +202,8 @@ function display5Days(data) {
         
         
     })
+
+   
 
 }
 
@@ -237,6 +248,8 @@ function findMostFrequentIcon(array) {
 
 // Function to display weather when User click button from search history
 $("#history").on("click", "button", function() {
+
+    
     let cityBtn = $(this).text();
     
     // Clear existing weather on a screen
@@ -245,5 +258,6 @@ $("#history").on("click", "button", function() {
 
     // Make an API call when button is clicked with the coresponding name of a city
     getWeather(cityBtn);
+
 
 } )

@@ -1,0 +1,67 @@
+
+
+/* Header section style  */
+.weather-header {
+    background-color: black;
+}
+
+
+/* Aside section style  */
+.form-input {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: solid 0.5px;
+}
+
+.search-button {
+    background-color: rgb(226, 226, 204);
+    margin-top: 10px;
+    width: 100%;
+    
+}
+
+.search-button:hover {
+   color: white;
+   background-color: grey;
+}
+
+
+
+/* Forecast section style */
+
+.hidden {
+    display: none;
+}
+
+#forecast {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    
+}
+
+.dayCard {
+    margin-top: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background: rgba(81, 85, 105, 0.15);
+    padding: 10px;
+}
+
+.dayCard > img {
+    height: 60px;
+}
+
+
+
+
+/* History styles */
+#history > button {
+    margin-top: 5px;
+    border-radius: 5px;
+    height: 40px;
+    background: rgba(81, 85, 105, 0.15);
+    border: none;
+}
+
