@@ -1,4 +1,26 @@
 
+let cityHistory = [];
+
+$(function() {
+    console.log(localStorage.getItem("searchHistory"))
+    // Getting data from local storage
+    let searchHistory = localStorage.getItem("searchHistory");
+
+    
+    if (searchHistory) {
+        searchHistory = JSON.parse(searchHistory);
+
+        searchHistory.forEach(function(element) {
+            let historyBtn = $("<button>").text(element);
+            $("#history").append(historyBtn);
+        })
+    } else {
+        localStorage.setItem("searchHistory", JSON.stringify(cityHistory));
+    }
+
+    
+})
+
 // Convert city name into a cordinates needed for API call for 5 days weather forecast
 function convertCity(cityName, callback) {
 
@@ -89,10 +111,24 @@ $("#search-button").on("click", function(event) {
     let historyBtn = $("<button>").text(searchInput);
     $("#history").prepend(historyBtn);
 
+
+    // Creating a search history to later save to local storage
+    
+    cityHistory.unshift(searchInput);
+    let localStData = JSON.parse(localStorage.getItem("searchHistory"));
+    localStData.unshift(searchInput)
+    localStorage.setItem("searchHistory", JSON.stringify(localStData));
+    
+   
+
 })
 
 // Function to display 5 days forecast
 function display5Days(data) {
+
+    
+    let currentDate = dayjs().format("DD-MM-YYYY");
+
     let groupedData = {};
 
     // For each date, add all available data
@@ -111,6 +147,8 @@ function display5Days(data) {
 
 
     });
+
+    delete groupedData[currentDate];
 
     // Looping through dates
     Object.keys(groupedData).forEach(function(date) {
