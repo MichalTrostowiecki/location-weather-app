@@ -25,7 +25,7 @@ $(function() {
 function convertCity(cityName, callback) {
 
     let APIkey = "bfad5b4e337fb545db6e1e7cf22420c3"
-    url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${APIkey}`;
+    url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${APIkey}`;
 
     fetch(url)
     .then(function(response) {
@@ -57,7 +57,7 @@ function getWeather(city) {
         let APIkey = "bfad5b4e337fb545db6e1e7cf22420c3"
         let lat = cityCordinates.latitude;
         let lon = cityCordinates.longitude;
-        url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${APIkey}`
+        url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${APIkey}`
     
         fetch(url)
         .then(function(response) {
